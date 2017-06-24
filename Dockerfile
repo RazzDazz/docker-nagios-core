@@ -32,3 +32,4 @@ RUN cd /tmp/nagios/ && \
 #RUN cd /tmp/${NAGIOS_SOURCE}/ && \
 #    ./configure --with-httpd-conf=/etc/apache2/sites-enabled && \
 #    make all
+

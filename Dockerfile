@@ -27,7 +27,7 @@ RUN apt-get -yqq update && \
 RUN mkdir -p /tmp/nagios && \
     cd /tmp/nagios/ && \
     wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/${NAGIOS_CORE_TAR}	 && \
-    tar nagioscore.tar.gz
+    tar zxvf nagioscore.tar.gz
     
 # Compile
 #RUN cd /tmp/${NAGIOS_SOURCE}/ && \

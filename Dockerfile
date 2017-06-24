@@ -5,6 +5,7 @@ MAINTAINER RazzDazz
 
 ENV REFRESHED_AT 2017-06-24
 ENV NAGIOS_CORE_TAR nagios-4.3.2.tar.gz
+ENV NAGIOS_CORE_DIR nagioscore-nagios-4.3.2
 ENV DEBIAN_FRONTEND noninteractive
 
 # Update packages, install apache, free diskspace
@@ -31,9 +32,9 @@ RUN mkdir -p /tmp/nagios && \
     rm -f nagioscore.tar.gz
     
 # Compile
-RUN cd /tmp/nagios/
-# RUN ./configure --with-httpd-conf=/etc/apache2/sites-enabled
-# RUN make all
+RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/
+RUN ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+RUN make all
 
 # run shell to keep container alive for testing
 CMD  /bin/bash

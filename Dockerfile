@@ -32,6 +32,8 @@ RUN mkdir -p /tmp/nagios && \
     
 # Compile
 RUN cd /tmp/nagios/
-RUN ./configure --with-httpd-conf=/etc/apache2/sites-enabled
-RUN make all
+# RUN ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+# RUN make all
 
+# run shell to keep container alive for testing
+CMD  /bin/bash

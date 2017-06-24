@@ -4,7 +4,7 @@ MAINTAINER RazzDazz
 # https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source.html#Ubuntu
 
 ENV REFRESHED_AT 2017-06-24
-ENV NAGIOS_SOURCE nagios-4.3.2.tar.gz
+ENV NAGIOS_CORE_TAR nagios-4.3.2.tar.gz
 ENV DEBIAN_FRONTEND noninteractive
 
 # Update packages, install apache, free diskspace
@@ -24,8 +24,9 @@ RUN apt-get -yqq update && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and extract nagios sourcen
-RUN cd /tmp/nagios/ && \
-    wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/${NAGIOS_SOURCE}	 && \
+RUN mkdir -p /tmp/nagios && \
+    cd /tmp/nagios/ && \
+    wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/${NAGIOS_CORE_TAR}	 && \
     tar nagioscore.tar.gz
     
 # Compile

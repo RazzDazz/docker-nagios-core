@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Update packages, install apache, free diskspace
 RUN apt-get -yqq update && \
     apt-get -yqq upgrade && \
-    apt-get --no-install-recommends -yqq install autoconf gcc libc6 make wget unzip apache2 php libapache2-mod-php7.0 libgd2-xpm-dev && \
+    apt-get -yqq install autoconf gcc libc6 make wget unzip apache2 php libapache2-mod-php7.0 libgd2-xpm-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and extract nagios sourcen

@@ -16,7 +16,7 @@ RUN apt-get -yqq update && \
         gcc \
         libapache2-mod-php7.0 \
         libc6 \
-        libgd2-xpm-dev
+        libgd2-xpm-dev \
         make \
         php \
         unzip \

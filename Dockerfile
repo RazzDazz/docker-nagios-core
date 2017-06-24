@@ -31,7 +31,7 @@ RUN mkdir -p /tmp/nagios && \
     rm -f nagioscore.tar.gz
     
 # Compile
-RUN cd /tmp/nagios/nagioscore/ && \
-    ./configure --with-httpd-conf=/etc/apache2/sites-enabled && \
-    make all
+RUN cd /tmp/nagios/nagioscore/
+RUN ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+RUN make all
 

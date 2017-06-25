@@ -49,8 +49,11 @@ RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/ && \
 # Configure apache to run cgi-scripts
 RUN a2enmod rewrite && a2enmod cgi
 
+# Create nagiosadmin user account 
+# htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+
 # Start apache2
-# service apache2 restart
+# apache2ctl start
 # Start nagios
 # /usr/local/nagios/bin/nagios /usr/local/nagios/etc/nagios.cfg
 

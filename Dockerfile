@@ -7,9 +7,8 @@ ENV REFRESHED_AT 2017-06-24
 ENV NAGIOS_CORE_TAR nagios-4.3.2.tar.gz
 ENV NAGIOS_CORE_DIR nagioscore-nagios-4.3.2
 ENV DEBIAN_FRONTEND noninteractive
-
-ARG NAGIOS_WEBADMIN_USER nagiosadmin
-ARG NAGIOS_WEBADMIN_PASSWORD nagios
+ENV NAGIOS_WEBADMIN_USER nagiosadmin
+ENV NAGIOS_WEBADMIN_START_PASSWORD nagios
 
 # Update packages, install apache, free diskspace
 RUN apt-get -yqq update && \
@@ -51,7 +50,7 @@ RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/ && \
 RUN a2enmod rewrite && a2enmod cgi
 
 # Create nagiosadmin user account with specified credentials
-RUN htpasswd -c /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} ${NAGIOS_WEBADMIN_PASSWORD}
+RUN htpasswd -c /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} ${NAGIOS_WEBADMIN_START_PASSWORD}
 
 # Start apache2
 # apache2ctl start

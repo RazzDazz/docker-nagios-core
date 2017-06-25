@@ -30,10 +30,13 @@ RUN mkdir -p /tmp/nagios && \
     wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/${NAGIOS_CORE_TAR}	 && \
     tar zxvf nagioscore.tar.gz && \
     rm -f nagioscore.tar.gz
-    
+
+# Preparations: Create user 'nagios', group 'nagcmd' and configer
+RUN useradd -m -s /bin/bash nagios && groupadd nagcmd && usermod -a -G nagcmd nagios && usermod -a -G nagcmd www-data
+
 # Compile
-RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/
-#RUN ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/ && \
+    ./configure --with-httpd-conf=/etc/apache2/sites-enabled
 #RUN make all
 
 # run shell to keep container alive for testing

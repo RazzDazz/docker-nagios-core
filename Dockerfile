@@ -8,6 +8,8 @@ ENV NAGIOS_CORE_TAR nagios-4.3.2.tar.gz
 ENV NAGIOS_CORE_DIR nagioscore-nagios-4.3.2
 ENV DEBIAN_FRONTEND noninteractive
 
+EXPOSE 80
+
 # Update packages, install apache, free diskspace
 RUN apt-get -yqq update && \
     apt-get -yqq upgrade && \

@@ -8,7 +8,8 @@ ENV NAGIOS_CORE_TAR nagios-4.3.2.tar.gz
 ENV NAGIOS_CORE_DIR nagioscore-nagios-4.3.2
 ENV DEBIAN_FRONTEND noninteractive
 
-EXPOSE 80
+ARG NAGIOS_WEBADMIN_USER nagiosadmin
+ARG NAGIOS_WEBADMIN_PASSWORD nagios
 
 # Update packages, install apache, free diskspace
 RUN apt-get -yqq update && \
@@ -49,13 +50,19 @@ RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/ && \
 # Configure apache to run cgi-scripts
 RUN a2enmod rewrite && a2enmod cgi
 
-# Create nagiosadmin user account 
-# htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+# Create nagiosadmin user account with specified credentials
+RUN htpasswd -c /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} ${NAGIOS_WEBADMIN_PASSWORD}
 
 # Start apache2
 # apache2ctl start
 # Start nagios
 # /usr/local/nagios/bin/nagios /usr/local/nagios/etc/nagios.cfg
+
+#
+EXPOSE 80
+
+# 
+VOLUME /var/logs/apache2
 
 # run shell to keep container alive for testing
 CMD  /bin/bash

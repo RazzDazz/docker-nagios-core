@@ -1,10 +1,10 @@
 # docker-nagios
 
 ## Optimization & todos
-- [ ] Get Solution for seting nagiosadmin user passwort
+- [ ] Get solution for setting nagiosadmin user passwort
 - [ ] Supress a2enmode warning to set servername directive
-- [ ] Start Apache
-- [ ] Start Nagios
+- [ ] Start apache
+- [ ] Start nagios
 - [ ] Define VOLUMES
 - [ ] Check Ports to EXPOSE
 

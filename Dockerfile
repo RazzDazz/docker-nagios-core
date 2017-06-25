@@ -50,7 +50,7 @@ RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/ && \
 RUN a2enmod rewrite && a2enmod cgi
 
 # Create nagiosadmin user account with specified credentials
-RUN htpasswd -c /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} ${NAGIOS_WEBADMIN_START_PASSWORD}
+RUN htpasswd -bc /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} ${NAGIOS_WEBADMIN_START_PASSWORD}
 
 # Start apache2
 # apache2ctl start

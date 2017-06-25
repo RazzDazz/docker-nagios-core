@@ -27,7 +27,7 @@ RUN apt-get -yqq update && \
 # Download and extract nagios sourcen
 RUN mkdir -p /tmp/nagios && \
     cd /tmp/nagios/ && \
-    wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/${NAGIOS_CORE_TAR}	 && \
+    wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/${NAGIOS_CORE_TAR} && \
     tar zxvf nagioscore.tar.gz && \
     rm -f nagioscore.tar.gz
 
@@ -36,8 +36,13 @@ RUN useradd -m -s /bin/bash nagios && groupadd nagcmd && usermod -a -G nagcmd na
 
 # Compile
 RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/ && \
-    ./configure --with-httpd-conf=/etc/apache2/sites-enabled
-#RUN make all
+    ./configure --with-httpd-conf=/etc/apache2/sites-enabled && \
+	make all &&	\
+	make install &&	\
+	make install-config &&	\
+	make install-commandmode &&	\
+	make install-webconf &&	\
+	make clean
 
 # run shell to keep container alive for testing
 CMD  /bin/bash

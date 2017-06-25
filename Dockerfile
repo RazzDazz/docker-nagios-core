@@ -44,5 +44,8 @@ RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/ && \
 	make install-webconf &&	\
 	make clean
 
+# Configure apache to run cgi-scripts
+RUN a2enmod rewrite && a2enmod cgi
+
 # run shell to keep container alive for testing
 CMD  /bin/bash

@@ -4,9 +4,15 @@ MAINTAINER RazzDazz
 # https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source.html#Ubuntu
 
 ENV REFRESHED_AT 2017-06-24
+ENV DEBIAN_FRONTEND noninteractive
+
+#
+# Install nagios core
+#
+
 ENV NAGIOS_CORE_TAR nagios-4.3.2.tar.gz
 ENV NAGIOS_CORE_DIR nagioscore-nagios-4.3.2
-ENV DEBIAN_FRONTEND noninteractive
+
 ENV NAGIOS_WEBADMIN_USER nagiosadmin
 ENV NAGIOS_WEBADMIN_START_PASSWORD nagios
 
@@ -39,18 +45,49 @@ RUN useradd -m -s /bin/bash nagios && groupadd nagcmd && usermod -a -G nagcmd na
 # Compile
 RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/ && \
     ./configure --with-httpd-conf=/etc/apache2/sites-enabled && \
-	make all &&	\
-	make install &&	\
-	make install-config &&	\
-	make install-commandmode &&	\
-	make install-webconf &&	\
-	make clean
+    make all && \
+    make install &&	\
+    make install-config &&	\
+    make install-commandmode && \
+    make install-webconf &&	\
+    make clean
 
 # Configure apache to run cgi-scripts
 RUN a2enmod rewrite && a2enmod cgi
 
 # Create nagiosadmin user account with specified credentials
 RUN htpasswd -bc /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} ${NAGIOS_WEBADMIN_START_PASSWORD}
+
+#
+# Install nagios plugins
+#
+
+ENV NAGIOS_PLUGINS_TAR nagios-4.3.2.tar.gz
+ENV NAGIOS_PLUGINS_DIR nagioscore-nagios-4.3.2
+
+# Install missing packages
+RUN apt-get -yqq install autoconf gcc libc6 libmcrypt-dev make libssl-dev wget bc gawk dc build-essential snmp libnet-snmp-perl gettext
+
+# Download and extract nagios sourcen
+RUN mkdir -p /tmp/nagios-plugins && \
+    cd /tmp/nagios-plugins/ && \
+    wget -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/${NAGIOS_CORE_TAR} && \
+    tar zxvf nagios-plugins.tar.gz && \
+    rm -f nagios-plugins.tar.gz
+
+# wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
+
+# Compile
+RUN cd /tmp/nagios/${NAGIOS_PLUGINS_DIR}/ && \
+    ./tools/setup && \
+    ./configure && \
+    make all && \
+    make install && \
+    make clean
+
+#
+# 
+#
 
 # Start apache2
 # apache2ctl start

@@ -59,44 +59,6 @@ RUN a2enmod rewrite && a2enmod cgi
 RUN htpasswd -bc /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} ${NAGIOS_WEBADMIN_START_PASSWORD}
 
 #
-# Install nagios plugins
-#
-
-ENV NAGIOS_PLUGINS_TAR nagios-4.3.2.tar.gz
-ENV NAGIOS_PLUGINS_DIR nagioscore-nagios-4.3.2
-
-# Install missing packages
-RUN apt-get -yqq update && \
-    apt-get -yqq upgrade && \
-    apt-get -yqq install autoconf gcc libc6 libmcrypt-dev make libssl-dev wget bc gawk dc build-essential snmp libnet-snmp-perl gettext
-
-# Download and extract nagios sourcen
-RUN mkdir -p /tmp/nagios-plugins && \
-    cd /tmp/nagios-plugins/ && \
-    wget -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/${NAGIOS_CORE_TAR} && \
-    tar zxvf nagios-plugins.tar.gz && \
-    rm -f nagios-plugins.tar.gz
-
-# wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
-
-# Compile
-RUN cd /tmp/nagios/${NAGIOS_PLUGINS_DIR}/ && \
-    ./tools/setup && \
-    ./configure && \
-    make all && \
-    make install && \
-    make clean
-
-#
-# 
-#
-
-# Start apache2
-# apache2ctl start
-# Start nagios
-# /usr/local/nagios/bin/nagios /usr/local/nagios/etc/nagios.cfg
-
-#
 EXPOSE 80
 
 # 
@@ -104,3 +66,8 @@ VOLUME /var/logs/apache2
 
 # run shell to keep container alive for testing
 CMD  /bin/bash
+
+# Start apache2
+# apache2ctl start
+# Start nagios
+# /usr/local/nagios/bin/nagios /usr/local/nagios/etc/nagios.cfg

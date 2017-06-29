@@ -66,7 +66,9 @@ ENV NAGIOS_PLUGINS_TAR nagios-4.3.2.tar.gz
 ENV NAGIOS_PLUGINS_DIR nagioscore-nagios-4.3.2
 
 # Install missing packages
-RUN apt-get -yqq install autoconf gcc libc6 libmcrypt-dev make libssl-dev wget bc gawk dc build-essential snmp libnet-snmp-perl gettext
+RUN apt-get -yqq update && \
+    apt-get -yqq upgrade && \
+    apt-get -yqq install autoconf gcc libc6 libmcrypt-dev make libssl-dev wget bc gawk dc build-essential snmp libnet-snmp-perl gettext
 
 # Download and extract nagios sourcen
 RUN mkdir -p /tmp/nagios-plugins && \

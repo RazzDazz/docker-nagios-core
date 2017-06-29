@@ -1,4 +1,4 @@
-# docker-nagios
+# docker-nagios-core
 
 ## Steps after first start
 - Change password for nagios webadmin user

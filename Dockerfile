@@ -70,7 +70,7 @@ COPY supervisor_nagios.conf /tmp/
 EXPOSE 80
 
 # 
-VOLUME /var/logs/apache2
+VOLUME /var/logs/supervisor
 VOLUME /usr/local/nagios/etc
 
 # run shell to keep container alive for testing

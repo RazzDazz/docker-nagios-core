@@ -18,7 +18,11 @@ Docker container to run a nagios core based on ubuntu. Tested plattform is a syn
 
 ## First start
 The start script checks volume `/usr/local/nagios/etc` if a file `nagios.cfg` exists. 
-If not found then the folder `/usr/local/nagios/etc-ori` (a copy of `/usr/local/nagios/etc` created during docker build) is copied back to `/usr/local/nagios/etc`. From this point you can adjust the default config to your needs. 
+If not found then the folder `/usr/local/nagios/etc-ori` (a copy of `/usr/local/nagios/etc` created during docker build) is copied back to `/usr/local/nagios/etc` and the default webuser is created. Remeber to change the password. 
+
+From this point you can adjust the default config to your needs. 
+
+** Attention: ** Deleting nagios.cfg reruns the copy process and recreates the default web user, changing the password to the default.
 
 ## Test
 ### nagios url
@@ -29,7 +33,7 @@ Open webbrowser and browse to`http://<localhost>:<port>/nagios`
 
 ## Steps after first start
 ### Change password for nagios webadmin user
-* Open terminal in run the command `htpasswd -bc /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} <password>`
+* Open terminal and run the command `htpasswd -bc /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} <password>`
 
 ## Optimization & todos
 - [ ] Supress a2enmode warning to set servername directive

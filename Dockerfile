@@ -67,6 +67,7 @@ EXPOSE 80
 # 
 VOLUME /var/logs/apache2
 VOLUME /usr/local/nagios/etc
+VOLUME /usr/local/nagios/etc-ori
 
 # run shell to keep container alive for testing
 CMD  /bin/bash

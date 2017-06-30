@@ -5,14 +5,5 @@ then
     cp -r /usr/local/nagios/etc-ori/* /usr/local/nagios/etc/
 fi
 
-# set -e
-# if [ "$1" = 'postgres' ]; then
-#    chown -R postgres "$PGDATA"
-#    if [ -z "$(ls -A "$PGDATA")" ]; then
-#        gosu postgres initdb
-#    fi
-#    exec gosu postgres "$@"
-# fi
-# exec "$@"
 echo "Starting supervisord ..." 
-# exec /usr/bin/supervisord --nodaemon --configuration /tmp/supervisor_nagios.conf
+exec /usr/bin/supervisord --nodaemon --configuration /tmp/supervisor_nagios.conf

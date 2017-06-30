@@ -52,7 +52,8 @@ RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/ && \
     make install-commandmode && \
     make install-webconf &&	\
     make clean && \
-    rm -dfr /tmp/nagios/
+    rm -dfr /tmp/nagios/ && \
+    cp -r /usr/local/nagios/etc/ /usr/local/nagios/etc-ori/
 
 # Configure apache to run cgi-scripts
 RUN a2enmod rewrite && a2enmod cgi

@@ -64,7 +64,7 @@ RUN htpasswd -bc /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} ${
 
 # Copy helper scripts into container
 COPY docker-entrypoint.sh /tmp/
-RUN chmod 777 docker-entrypoint.sh
+RUN chmod 777 /tmp/docker-entrypoint.sh
 COPY supervisor_nagios.conf /tmp/
 
 #

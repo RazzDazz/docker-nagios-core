@@ -63,6 +63,10 @@ RUN a2enmod rewrite && a2enmod cgi
 RUN htpasswd -bc /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} ${NAGIOS_WEBADMIN_START_PASSWORD}
 
 #
+COPY docker-entrypoint.sh /tmp/
+COPY supervisor_nagios.conf /tmp/
+
+#
 EXPOSE 80
 
 # 

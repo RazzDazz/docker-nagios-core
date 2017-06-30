@@ -71,8 +71,4 @@ VOLUME /usr/local/nagios/etc-ori
 
 # run shell to keep container alive for testing
 CMD  /bin/bash
-
-# Start apache2
-# apache2ctl start
-# Start nagios
-# /usr/local/nagios/bin/nagios /usr/local/nagios/etc/nagios.cfg
+# CMD ["/usr/bin/supervisord"]

@@ -38,7 +38,8 @@ RUN mkdir -p /tmp/nagios && \
     cd /tmp/nagios/ && \
     wget -O nagioscore.tar.gz https://github.com/NagiosEnterprises/nagioscore/archive/${NAGIOS_CORE_TAR} && \
     tar zxvf nagioscore.tar.gz && \
-    rm -f nagioscore.tar.gz
+    rm -f nagioscore.tar.gz && \
+    cp -r /usr/local/nagios/etc/ /usr/local/nagios/etc-ori/
 
 # Preparations: Create user 'nagios', group 'nagcmd' and configer
 RUN useradd -m -s /bin/bash nagios && groupadd nagcmd && usermod -a -G nagcmd nagios && usermod -a -G nagcmd www-data

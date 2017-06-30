@@ -78,4 +78,4 @@ VOLUME /usr/local/nagios/etc
 # CMD  /bin/bash
 # ENTRYPOINT ["/docker-entrypoint.sh"]
 # CMD ["/usr/bin/supervisord"]
-CMD [/tmp/docker-entrypoint.sh]
+CMD ["/tmp/docker-entrypoint.sh"]

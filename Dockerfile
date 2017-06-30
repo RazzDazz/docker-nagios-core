@@ -60,16 +60,23 @@ RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/ && \
 RUN a2enmod rewrite && a2enmod cgi
 
 # Create nagiosadmin user account with specified credentials
-RUN htpasswd -bc /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} ${NAGIOS_WEBADMIN_START_PASSWORD}
+#   Can't create file here because directory will be mounted to host and not available; move to docker-entrypoint.sh
+# RUN htpasswd -bc /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} ${NAGIOS_WEBADMIN_START_PASSWORD}
+
+# Copy helper scripts into container
+COPY docker-entrypoint.sh /tmp/
+RUN chmod 777 /tmp/docker-entrypoint.sh
+COPY supervisor_nagios.conf /tmp/
 
 #
 EXPOSE 80
 
 # 
-VOLUME /var/logs/apache2
+VOLUME /var/logs/supervisor
 VOLUME /usr/local/nagios/etc
 
 # run shell to keep container alive for testing
-CMD  /bin/bash
+# CMD  /bin/bash
 # ENTRYPOINT ["/docker-entrypoint.sh"]
 # CMD ["/usr/bin/supervisord"]
+CMD ["/tmp/docker-entrypoint.sh"]

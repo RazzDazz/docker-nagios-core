@@ -62,8 +62,9 @@ RUN a2enmod rewrite && a2enmod cgi
 # Create nagiosadmin user account with specified credentials
 RUN htpasswd -bc /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} ${NAGIOS_WEBADMIN_START_PASSWORD}
 
-#
+# Copy helper scripts into container
 COPY docker-entrypoint.sh /tmp/
+RUN chmod 777 docker-entrypoint.sh
 COPY supervisor_nagios.conf /tmp/
 
 #
@@ -74,6 +75,7 @@ VOLUME /var/logs/supervisor
 VOLUME /usr/local/nagios/etc
 
 # run shell to keep container alive for testing
-CMD  /bin/bash
+# CMD  /bin/bash
 # ENTRYPOINT ["/docker-entrypoint.sh"]
 # CMD ["/usr/bin/supervisord"]
+CMD [/tmp/docker-entrypoint.sh]

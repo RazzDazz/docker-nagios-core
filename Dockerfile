@@ -53,7 +53,8 @@ RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/ && \
     make install-webconf &&	\
     make clean && \
     rm -dfr /tmp/nagios/ && \
-    cp -r /usr/local/nagios/etc/ /usr/local/nagios/etc-ori/
+    mv /usr/local/nagios/etc/ /usr/local/nagios/etc-ori/ && \
+    mkdir /usr/local/nagios/etc/
 
 # Configure apache to run cgi-scripts
 RUN a2enmod rewrite && a2enmod cgi
@@ -67,8 +68,8 @@ EXPOSE 80
 # 
 VOLUME /var/logs/apache2
 VOLUME /usr/local/nagios/etc
-VOLUME /usr/local/nagios/etc-ori
 
 # run shell to keep container alive for testing
 CMD  /bin/bash
+# ENTRYPOINT ["/docker-entrypoint.sh"]
 # CMD ["/usr/bin/supervisord"]

@@ -28,6 +28,7 @@ RUN apt-get -yqq update && \
         libgd2-xpm-dev \
         make \
         php \
+        supervisor \
         unzip \
         wget && \
     rm -rf /var/lib/apt/lists/*
@@ -50,7 +51,8 @@ RUN cd /tmp/nagios/${NAGIOS_CORE_DIR}/ && \
     make install-config &&	\
     make install-commandmode && \
     make install-webconf &&	\
-    make clean
+    make clean && \
+    rm -dfr /tmp/nagios/
 
 # Configure apache to run cgi-scripts
 RUN a2enmod rewrite && a2enmod cgi
@@ -63,6 +65,7 @@ EXPOSE 80
 
 # 
 VOLUME /var/logs/apache2
+VOLUME /usr/local/nagios/etc
 
 # run shell to keep container alive for testing
 CMD  /bin/bash

@@ -15,4 +15,4 @@ fi
 # fi
 # exec "$@"
 echo "Starting supervisord ..." 
-# exec /usr/bin/supervisord --nodaemon -configuration /tmp/supervisor_nagios.conf
+# exec /usr/bin/supervisord --nodaemon --configuration /tmp/supervisor_nagios.conf

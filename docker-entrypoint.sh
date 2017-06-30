@@ -10,3 +10,5 @@ cp -r /usr/local/nagios/etc-ori/* /usr/local/nagios/etc/
 #    exec gosu postgres "$@"
 # fi
 # exec "$@"
+
+exec /usr/bin/supervisord --nodaemon -configuration /tmp/supervisor_nagios.conf

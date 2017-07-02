@@ -35,5 +35,7 @@ Open webbrowser and browse to`http://<localhost>:<port>/nagios`
 ### Change password for nagios webadmin user
 * Open terminal and run the command `htpasswd -bc /usr/local/nagios/etc/htpasswd.users ${NAGIOS_WEBADMIN_USER} <password>`
 
-## Optimization & todos
+## Know issues & todos
 - [ ] Supress a2enmode warning to set servername directive
+- [ ] Enable mail
+- [ ] Solve permissions issues with file exchange via volume (nagios config, objetc etc.)
